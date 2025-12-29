@@ -1,0 +1,270 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Home - SGD Events{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">Sree Gurudatta Events</h1>
+        <p class="hero-subtitle">Creating Magical Moments for Your Special Day</p>
+        <a href="#packages" class="btn btn-primary">Explore Packages</a>
+    </div>
+</section>
+
+<!-- Section 1: Readymade Packages -->
+<section id="packages" class="packages-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Our Packages</h2>
+            <p class="section-subtitle">Choose the perfect package for your dream event</p>
+        </div>
+        
+        <div class="packages-grid">
+            {% for package in packages %}
+            <div class="package-card {% if package.is_popular %}popular{% endif %}">
+                {% if package.is_popular %}
+                <div class="popular-badge">
+                    <i class="fas fa-star"></i> Most Popular
+                </div>
+                {% endif %}
+                
+                <div class="package-header">
+                    <h3 class="package-name">{{ package.name }}</h3>
+                    <div class="package-price">{{ package.price }}</div>
+                </div>
+                
+                <div class="package-features">
+                    <ul>
+                        {% for feature in package.features %}
+                        <li>
+                            <i class="fas fa-check-circle"></i>
+                            {{ feature }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                
+                <div class="package-footer">
+                    <button class="btn btn-outline">Learn More</button>
+                    <button class="btn btn-primary">Book Now</button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Section 2: Categories (3x3 Grid) -->
+<section id="categories" class="categories-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Our Services</h2>
+            <p class="section-subtitle">Everything you need for your perfect event</p>
+        </div>
+        
+        <div class="categories-grid">
+            {% for category in categories %}
+            <div class="category-card">
+                <div class="category-icon">
+                    <i class="fas {{ category.icon }}"></i>
+                </div>
+                <h3 class="category-name">{{ category.name }}</h3>
+                <p class="category-description">{{ category.description }}</p>
+                <a href="#" class="category-link">
+                    Explore <i class="fas fa-arrow-right"></i>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form Section -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title" style="font-style: italic; color: #2c1810;">We Tell Your Story</h2>
+            <p class="section-subtitle" style="text-transform: uppercase; letter-spacing: 1px;">Please get in touch with us and provide as many details as you can</p>
+        </div>
+        
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-success">
+                <i class="fas fa-check-circle"></i> {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+        
+        <form method="POST" class="contact-form">
+            {% csrf_token %}
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="id_name">Name</label>
+                    {{ form.name }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_email">Email</label>
+                    {{ form.email }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="id_phone">Phone</label>
+                    {{ form.phone }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_wedding_date">Wedding Date</label>
+                    {{ form.wedding_date }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="id_wedding_destination">Wedding Destination</label>
+                    {{ form.wedding_destination }}
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_wedding_budget">Wedding Budget</label>
+                    {{ form.wedding_budget }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Functions</label>
+                    <div class="checkbox-group">
+                        {% for checkbox in form.functions %}
+                            <label class="custom-checkbox-label">
+                                {{ checkbox.tag }} {{ checkbox.choice_label }} 
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_number_of_rooms">Number of Rooms (If Required)</label>
+                    {{ form.number_of_rooms }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label>Category of Hotel (If required)</label>
+                    <div class="checkbox-group">
+                        {% for checkbox in form.hotel_category %}
+                            <label class="custom-checkbox-label">
+                                {{ checkbox.tag }}
+                                {{ checkbox.choice_label }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="id_heard_from">How did you hear about us</label>
+                    {{ form.heard_from }}
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group full-width">
+                    <label for="id_message">Tell us about your dream day</label>
+                    {{ form.message }}
+                </div>
+                
+                <div class="form-group full-width">
+                    <label>Schedule online consultation (via Whatsapp/Skype/Hangout etc)</label>
+                    <div class="radio-group">
+                        {% for radio in form.consultation %}
+                            <label class="custom-radio-label">
+                                {{ radio.tag }}
+                                {{ radio.choice_label }}
+                            </label>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form-submit">
+                <button type="submit" class="btn btn-primary btn-submit">
+                    Submit Now <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">What Our Clients Say</h2>
+            <p class="section-subtitle">Real experiences from real people</p>
+        </div>
+        
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    "SGD Events made our wedding absolutely perfect! Every detail was taken care of with 
+                    such professionalism and care. Highly recommended!"
+                </p>
+                <div class="testimonial-author">
+                    <strong>Priya & Rajesh</strong>
+                    <span>Wedding - Bangalore</span>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    "Outstanding service! The team at SGD Events went above and beyond to make our special 
+                    day memorable. The photography was exceptional!"
+                </p>
+                <div class="testimonial-author">
+                    <strong>Anjali & Karthik</strong>
+                    <span>Wedding - Mumbai</span>
+                </div>
+            </div>
+            
+            <div class="testimonial-card">
+                <div class="testimonial-rating">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+                <p class="testimonial-text">
+                    "From planning to execution, everything was flawless. The team was responsive, creative, 
+                    and made sure everything was perfect. Thank you SGD Events!"
+                </p>
+                <div class="testimonial-author">
+                    <strong>Sneha & Vikram</strong>
+                    <span>Wedding - Chennai</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

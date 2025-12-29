@@ -1,0 +1,214 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us - SGD Events{% endblock %}
+
+{% block content %}
+<!-- About Hero Section -->
+<section class="hero" style="height: 400px;">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">About SGD Events</h1>
+        <p class="hero-subtitle">Your Trusted Partner in Creating Unforgettable Moments</p>
+    </div>
+</section>
+
+<!-- Main About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="about-content">
+            <div class="about-image">
+                <img src="{% static 'images/about-placeholder.jpg' %}" alt="SGD Events" onerror="this.style.display='none'">
+                <div class="about-image-placeholder">
+                    <i class="fas fa-heart"></i>
+                </div>
+            </div>
+            
+            <div class="about-text">
+                <h2 class="section-title">Sree Gurudatta Events</h2>
+                <h3 class="about-subtitle">Creating Magic Since 2015</h3>
+                
+                <p class="about-description">
+                    Welcome to Sree Gurudatta Events (SGD Events), your trusted partner in creating unforgettable 
+                    moments. With years of experience in the event planning industry, we specialize in making your 
+                    dreams come true.
+                </p>
+                
+                <p class="about-description">
+                    From intimate gatherings to grand celebrations, we offer comprehensive wedding and event planning 
+                    services. Our team of experienced professionals is dedicated to bringing your vision to life with 
+                    attention to detail and creativity.
+                </p>
+                
+                <p class="about-description">
+                    We believe that every event is unique and deserves personalized attention. Whether it's a traditional 
+                    wedding, a modern celebration, or a corporate event, we bring the same level of passion and commitment 
+                    to make it extraordinary.
+                </p>
+                
+                <div class="about-features">
+                    <div class="about-feature">
+                        <i class="fas fa-award"></i>
+                        <div>
+                            <h4>10+ Years Experience</h4>
+                            <p>Trusted by thousands of happy couples</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <h4>Expert Team</h4>
+                            <p>Professional event planners and coordinators</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <i class="fas fa-star"></i>
+                        <div>
+                            <h4>500+ Events</h4>
+                            <p>Successfully executed celebrations</p>
+                        </div>
+                    </div>
+                    
+                    <div class="about-feature">
+                        <i class="fas fa-handshake"></i>
+                        <div>
+                            <h4>100% Satisfaction</h4>
+                            <p>Committed to excellence in every detail</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Mission & Vision -->
+<section class="mission-vision-section" style="padding: 4rem 0; background-color: #f8f5f0;">
+    <div class="container">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 3rem; color: #d4af37; margin-bottom: 1rem;">
+                    <i class="fas fa-bullseye"></i>
+                </div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.75rem; margin-bottom: 1rem; color: #2c1810;">Our Mission</h3>
+                <p style="color: #666; line-height: 1.8;">
+                    To create extraordinary events that exceed expectations, turning your dreams into reality 
+                    with meticulous planning, creative innovation, and unwavering dedication to excellence.
+                </p>
+            </div>
+            
+            <div style="background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <div style="font-size: 3rem; color: #d4af37; margin-bottom: 1rem;">
+                    <i class="fas fa-eye"></i>
+                </div>
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.75rem; margin-bottom: 1rem; color: #2c1810;">Our Vision</h3>
+                <p style="color: #666; line-height: 1.8;">
+                    To be the most trusted and preferred event management company, known for creating 
+                    unforgettable experiences and setting new standards in the industry.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section style="padding: 4rem 0;">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Why Choose SGD Events?</h2>
+            <p class="section-subtitle">What makes us different</p>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; margin-top: 3rem;">
+            <div style="text-align: center; padding: 1.5rem;">
+                <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #d4af37, #ff6b9d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    <i class="fas fa-lightbulb"></i>
+                </div>
+                <h4 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Creative Excellence</h4>
+                <p style="color: #666;">Innovative ideas and unique concepts for your special day</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem;">
+                <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #d4af37, #ff6b9d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    <i class="fas fa-clock"></i>
+                </div>
+                <h4 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Timely Execution</h4>
+                <p style="color: #666;">Perfect timing and seamless coordination throughout</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem;">
+                <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #d4af37, #ff6b9d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    <i class="fas fa-rupee-sign"></i>
+                </div>
+                <h4 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Value for Money</h4>
+                <p style="color: #666;">Premium services at competitive and transparent pricing</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem;">
+                <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #d4af37, #ff6b9d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    <i class="fas fa-headset"></i>
+                </div>
+                <h4 style="margin-bottom: 0.5rem; font-size: 1.25rem;">24/7 Support</h4>
+                <p style="color: #666;">Always available to answer your questions and concerns</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem;">
+                <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #d4af37, #ff6b9d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    <i class="fas fa-certificate"></i>
+                </div>
+                <h4 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Certified Professionals</h4>
+                <p style="color: #666;">Experienced and certified event management team</p>
+            </div>
+            
+            <div style="text-align: center; padding: 1.5rem;">
+                <div style="width: 80px; height: 80px; margin: 0 auto 1rem; background: linear-gradient(135deg, #d4af37, #ff6b9d); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white;">
+                    <i class="fas fa-heart"></i>
+                </div>
+                <h4 style="margin-bottom: 0.5rem; font-size: 1.25rem;">Personalized Service</h4>
+                <p style="color: #666;">Every event is customized to your preferences</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Social Connect Section -->
+<section class="about-section" style="background: linear-gradient(135deg, #f8f5f0 0%, #ffffff 100%);">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Connect With Us</h2>
+            <p class="section-subtitle">Follow us on social media for updates and inspiration</p>
+        </div>
+        
+        <div class="social-connect" style="text-align: center; max-width: 600px; margin: 0 auto;">
+            <div class="social-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                <a href="https://facebook.com" target="_blank" class="social-btn facebook">
+                    <i class="fab fa-facebook"></i> Facebook
+                </a>
+                <a href="https://instagram.com" target="_blank" class="social-btn instagram">
+                    <i class="fab fa-instagram"></i> Instagram
+                </a>
+            </div>
+            
+            <div style="margin-top: 3rem; padding: 2rem; background: white; border-radius: 15px; box-shadow: 0 5px 15px rgba(0,0,0,0.1);">
+                <h4 style="margin-bottom: 1.5rem; color: #2c1810;">Get In Touch</h4>
+                <div style="display: flex; flex-direction: column; gap: 1rem;">
+                    <div style="display: flex; align-items: center; gap: 1rem; justify-content: center;">
+                        <i class="fas fa-phone" style="color: #d4af37; font-size: 1.25rem;"></i>
+                        <span>+91 1234567890</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; justify-content: center;">
+                        <i class="fas fa-envelope" style="color: #d4af37; font-size: 1.25rem;"></i>
+                        <span>info@sgdevents.com</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 1rem; justify-content: center;">
+                        <i class="fas fa-map-marker-alt" style="color: #d4af37; font-size: 1.25rem;"></i>
+                        <span>Bangalore, India</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
