@@ -72,7 +72,9 @@ body {
 
 .nav-brand {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    align-items: center;
+    /* gap: 0 */
 }
 
 .logo {
@@ -88,14 +90,14 @@ body {
 }
 
 .logo:hover {
-    color: var(--white);
     transform: scale(1.05);
 }
 
 .logo-img {
-    height: 50px;
+    height: 80px;
     width: auto;
     object-fit: contain;
+    transition: var(--transition);
 }
 
 .logo i {
@@ -107,7 +109,7 @@ body {
 }
 
 .tagline {
-    color: var(--light-gray);
+    color: var(--white);
     font-size: 0.75rem;
     margin-left: 2.5rem;
     font-style: italic;
