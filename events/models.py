@@ -7,6 +7,7 @@ class Category(models.Model):
     description = models.TextField(blank=True)
     icon = models.CharField(max_length=50, blank=True, help_text="Font Awesome icon class")
     image = models.ImageField(upload_to='categories/', blank=True, null=True)
+    image_url = models.URLField(max_length=500, blank=True, help_text="External image URL (optional)")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -16,6 +17,29 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+    
+    def get_image_url(self):
+        """Return image URL, prioritizing uploaded image over external URL"""
+        if self.image:
+            return self.image.url
+        return self.image_url or ''
+
+
+class SubCategory(models.Model):
+    """Subcategory model linked to main categories"""
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='subcategories')
+    name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    slug = models.SlugField(max_length=100, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name_plural = "SubCategories"
+        ordering = ['name']
+
+    def __str__(self):
+        return f"{self.category.name} - {self.name}"
 
 
 class Package(models.Model):

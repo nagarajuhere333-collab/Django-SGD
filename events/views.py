@@ -57,17 +57,80 @@ def home(request):
         },
     ]
     
-    # Categories data
+    # Categories data with subcategories
     categories = [
-        {'name': 'Venue', 'icon': 'fa-building', 'description': 'Beautiful venues for your special day'},
-        {'name': 'Makeup', 'icon': 'fa-paint-brush', 'description': 'Professional makeup artists'},
-        {'name': 'Photographers', 'icon': 'fa-camera', 'description': 'Capture your precious moments'},
-        {'name': 'Mehandi', 'icon': 'fa-hand-sparkles', 'description': 'Traditional mehandi designs'},
-        {'name': 'Virtual Planning', 'icon': 'fa-video', 'description': 'Plan your event online'},
-        {'name': 'Jewellary', 'icon': 'fa-gem', 'description': 'Exquisite jewelry collection'},
-        {'name': 'Food', 'icon': 'fa-utensils', 'description': 'Delicious catering services'},
-        {'name': 'Pre Wedding Shoot', 'icon': 'fa-heart', 'description': 'Memorable pre-wedding photography'},
-        {'name': 'Pandit', 'icon': 'fa-om', 'description': 'Traditional ceremony services'},
+        {
+            'name': 'Venues',
+            'icon': 'fa-building',
+            'description': 'Beautiful venues for your special day',
+            'image': 'https://images.unsplash.com/photo-1519167758481-83f29da8c776?w=800',
+            'subcategories': [
+                'Banquet Halls',
+                'Marriage Gardens',
+                'Wedding Resorts',
+                'Kalyana Mandapams',
+                'Wedding Hotels'
+            ]
+        },
+        {
+            'name': 'Photographers',
+            'icon': 'fa-camera',
+            'description': 'Capture your precious moments',
+            'image': 'https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800',
+            'subcategories': [
+                'Wedding Photography',
+                'Candid Shoots',
+                'Pre-Wedding',
+                'Cinematography'
+            ]
+        },
+        {
+            'name': 'Makeup',
+            'icon': 'fa-paint-brush',
+            'description': 'Professional makeup artists',
+            'image': 'https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800',
+            'subcategories': [
+                'Bridal Makeup',
+                'Family Makeup',
+                'Hair Styling',
+                'Mehandi Artists'
+            ]
+        },
+        {
+            'name': 'Planning & Decor',
+            'icon': 'fa-palette',
+            'description': 'Complete event planning services',
+            'image': 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800',
+            'subcategories': [
+                'Wedding Planners',
+                'Decorators',
+                'Florists',
+                'Stage Design'
+            ]
+        },
+        {
+            'name': 'Catering',
+            'icon': 'fa-utensils',
+            'description': 'Delicious catering services',
+            'image': 'https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800',
+            'subcategories': [
+                'Wedding Caterers',
+                'Cake Makers',
+                'Bar Services'
+            ]
+        },
+        {
+            'name': 'Entertainment',
+            'icon': 'fa-music',
+            'description': 'Music and entertainment',
+            'image': 'https://images.unsplash.com/photo-1511578314322-379afb476865?w=800',
+            'subcategories': [
+                'DJ Services',
+                'Music Bands',
+                'Dancers',
+                'Anchors'
+            ]
+        },
     ]
     
     # Locations for dropdown

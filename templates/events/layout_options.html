@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Category Layout Options - Choose Your Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #f8f9fa;
+            padding: 40px 20px;
+        }
+
+        .layout-showcase {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .layout-section {
+            background: white;
+            margin-bottom: 60px;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .layout-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .layout-header h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #2c1810;
+            margin-bottom: 10px;
+        }
+
+        .layout-header p {
+            color: #666;
+            font-size: 1.1rem;
+        }
+
+        .option-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #d4af37;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .option-description {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 0.95rem;
+        }
+
+        /* ========================================
+           OPTION 1: Overlay Gradient Cards
+        ======================================== */
+        .overlay-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+        }
+
+        .overlay-card {
+            position: relative;
+            height: 320px;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .overlay-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(212, 175, 55, 0.3);
+        }
+
+        .overlay-card-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.4s ease;
+        }
+
+        .overlay-card:hover .overlay-card-bg {
+            transform: scale(1.1);
+        }
+
+        .overlay-gradient {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .overlay-card-title {
+            color: white;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .overlay-subcategories {
+            color: rgba(255,255,255,0.9);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .overlay-count {
+            color: #d4af37;
+            font-weight: 600;
+            margin-top: 8px;
+            font-size: 0.85rem;
+        }
+
+        /* ========================================
+           OPTION 2: Split Diagonal Design
+        ======================================== */
+        .diagonal-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .diagonal-card {
+            position: relative;
+            height: 280px;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .diagonal-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+        }
+
+        .diagonal-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 60%;
+            height: 100%;
+            background: linear-gradient(135deg, #fff4e6 0%, #ffe4cc 100%);
+            padding: 30px;
+            clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+            z-index: 2;
+            transition: clip-path 0.4s ease;
+        }
+
+        .diagonal-card:hover .diagonal-content {
+            clip-path: polygon(0 0, 100% 0, 90% 100%, 0 100%);
+        }
+
+        .diagonal-image {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+
+        .diagonal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            color: #2c1810;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .diagonal-list {
+            list-style: none;
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.8;
+        }
+
+        .diagonal-list li::before {
+            content: "→ ";
+            color: #d4af37;
+            font-weight: 600;
+        }
+
+        /* ========================================
+           OPTION 3: Floating Card Design
+        ======================================== */
+        .floating-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .floating-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+        }
+
+        .floating-card:hover {
+            transform: translateY(-12px) rotateX(2deg);
+            box-shadow: 0 20px 50px rgba(212, 175, 55, 0.2);
+        }
+
+        .floating-image {
+            height: 180px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .floating-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: rgba(212, 175, 55, 0.95);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .floating-content {
+            padding: 24px;
+        }
+
+        .floating-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: #2c1810;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .floating-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .floating-tag {
+            background: #f8f5f0;
+            color: #666;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .floating-card:hover .floating-tag {
+            background: #d4af37;
+            color: white;
+        }
+
+        /* ========================================
+           OPTION 4: Magazine Grid Layout
+        ======================================== */
+        .magazine-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-auto-rows: 200px;
+            gap: 16px;
+        }
+
+        .magazine-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .magazine-card.large {
+            grid-column: span 2;
+            grid-row: span 2;
+        }
+
+        .magazine-card.wide {
+            grid-column: span 2;
+        }
+
+        .magazine-card.tall {
+            grid-row: span 2;
+        }
+
+        .magazine-card:hover {
+            transform: scale(1.03);
+            z-index: 10;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+        }
+
+        .magazine-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            filter: brightness(0.7);
+            transition: filter 0.3s ease;
+        }
+
+        .magazine-card:hover .magazine-bg {
+            filter: brightness(0.5);
+        }
+
+        .magazine-overlay {
+            position: absolute;
+            inset: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 100%);
+        }
+
+        .magazine-title {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .magazine-card.large .magazine-title {
+            font-size: 2rem;
+        }
+
+        .magazine-subtitle {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.8rem;
+        }
+
+        /* ========================================
+           OPTION 5: Hover Expand Cards
+        ======================================== */
+        .expand-grid {
+            display: flex;
+            gap: 16px;
+            height: 400px;
+        }
+
+        .expand-card {
+            flex: 1;
+            position: relative;
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .expand-card:hover {
+            flex: 2.5;
+        }
+
+        .expand-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s ease;
+        }
+
+        .expand-card:hover .expand-bg {
+            transform: scale(1.1);
+        }
+
+        .expand-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.3) 100%);
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            transition: background 0.6s ease;
+        }
+
+        .expand-card:hover .expand-overlay {
+            background: linear-gradient(to top, rgba(212,175,55,0.95) 0%, rgba(212,175,55,0.7) 100%);
+        }
+
+        .expand-title {
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            writing-mode: horizontal-tb;
+            text-orientation: mixed;
+            transition: all 0.6s ease;
+            white-space: nowrap;
+        }
+
+        .expand-card:hover .expand-title {
+            writing-mode: horizontal-tb;
+            font-size: 2rem;
+            margin-bottom: 16px;
+        }
+
+        .expand-details {
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+            color: white;
+        }
+
+        .expand-card:hover .expand-details {
+            opacity: 1;
+            max-height: 200px;
+        }
+
+        .expand-list {
+            list-style: none;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .expand-list li::before {
+            content: "✓ ";
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .diagonal-grid, .floating-grid {
+                grid-template-columns: 1fr;
+            }
+            .magazine-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .expand-grid {
+                flex-direction: column;
+                height: auto;
+            }
+            .expand-card {
+                min-height: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="layout-showcase">
+        <!-- Header -->
+        <div class="layout-header">
+            <h1>Choose Your Perfect Design</h1>
+            <p>5 Unique Wedding Category Layouts - Pick Your Favorite!</p>
+        </div>
+
+        <!-- OPTION 1: Overlay Gradient Cards -->
+        <div class="layout-section">
+            <h2 class="option-title">Option 1: Overlay Gradient Cards</h2>
+            <p class="option-description">Clean, image-focused design with elegant text overlay. Great for showcasing beautiful venue photos.</p>
+            
+            <div class="overlay-grid">
+                <div class="overlay-card">
+                    <div class="overlay-card-bg" style="background-image: url('https://images.unsplash.com/photo-1519167758481-83f29da8c776?w=800');"></div>
+                    <div class="overlay-gradient">
+                        <h3 class="overlay-card-title">Venues</h3>
+                        <p class="overlay-subcategories">Banquet Halls • Marriage Gardens • Wedding Resorts • Kalyana Mandapams</p>
+                        <p class="overlay-count">9 Categories</p>
+                    </div>
+                </div>
+
+                <div class="overlay-card">
+                    <div class="overlay-card-bg" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800');"></div>
+                    <div class="overlay-gradient">
+                        <h3 class="overlay-card-title">Photographers</h3>
+                        <p class="overlay-subcategories">Wedding Photography • Candid Shoots • Pre-Wedding • Cinematography</p>
+                        <p class="overlay-count">6 Categories</p>
+                    </div>
+                </div>
+
+                <div class="overlay-card">
+                    <div class="overlay-card-bg" style="background-image: url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800');"></div>
+                    <div class="overlay-gradient">
+                        <h3 class="overlay-card-title">Makeup</h3>
+                        <p class="overlay-subcategories">Bridal Makeup • Family Makeup • Hair Styling • Mehandi Artists</p>
+                        <p class="overlay-count">5 Categories</p>
+                    </div>
+                </div>
+
+                <div class="overlay-card">
+                    <div class="overlay-card-bg" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800');"></div>
+                    <div class="overlay-gradient">
+                        <h3 class="overlay-card-title">Planning & Decor</h3>
+                        <p class="overlay-subcategories">Wedding Planners • Decorators • Florists • Stage Design</p>
+                        <p class="overlay-count">7 Categories</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION 2: Split Diagonal Design -->
+        <div class="layout-section">
+            <h2 class="option-title">Option 2: Split Diagonal Design</h2>
+            <p class="option-description">Modern asymmetric layout with dynamic angles. Perfect balance of text and visuals.</p>
+            
+            <div class="diagonal-grid">
+                <div class="diagonal-card">
+                    <div class="diagonal-image" style="background-image: url('https://images.unsplash.com/photo-1519167758481-83f29da8c776?w=800');"></div>
+                    <div class="diagonal-content">
+                        <h3 class="diagonal-title">Venues</h3>
+                        <ul class="diagonal-list">
+                            <li>Banquet Halls</li>
+                            <li>Marriage Gardens</li>
+                            <li>Wedding Resorts</li>
+                            <li>Kalyana Mandapams</li>
+                            <li>Wedding Hotels</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="diagonal-card">
+                    <div class="diagonal-image" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800');"></div>
+                    <div class="diagonal-content">
+                        <h3 class="diagonal-title">Photographers</h3>
+                        <ul class="diagonal-list">
+                            <li>Wedding Photography</li>
+                            <li>Candid Photography</li>
+                            <li>Pre-Wedding Shoots</li>
+                            <li>Cinematography</li>
+                            <li>Drone Shoots</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="diagonal-card">
+                    <div class="diagonal-image" style="background-image: url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800');"></div>
+                    <div class="diagonal-content">
+                        <h3 class="diagonal-title">Makeup Artists</h3>
+                        <ul class="diagonal-list">
+                            <li>Bridal Makeup</li>
+                            <li>Family Makeup</li>
+                            <li>Hair Styling</li>
+                            <li>Mehandi Artists</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="diagonal-card">
+                    <div class="diagonal-image" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800');"></div>
+                    <div class="diagonal-content">
+                        <h3 class="diagonal-title">Decor</h3>
+                        <ul class="diagonal-list">
+                            <li>Wedding Planners</li>
+                            <li>Decorators</li>
+                            <li>Florists</li>
+                            <li>Stage Design</li>
+                            <li>Lighting</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION 3: Floating Card Design -->
+        <div class="layout-section">
+            <h2 class="option-title">Option 3: Floating Cards with Tags</h2>
+            <p class="option-description">Clean, card-based layout with interactive tag system. Modern and mobile-friendly.</p>
+            
+            <div class="floating-grid">
+                <div class="floating-card">
+                    <div class="floating-image" style="background-image: url('https://images.unsplash.com/photo-1519167758481-83f29da8c776?w=800');">
+                        <div class="floating-badge">9 Types</div>
+                    </div>
+                    <div class="floating-content">
+                        <h3 class="floating-title">Venues</h3>
+                        <div class="floating-tags">
+                            <span class="floating-tag">Banquet Halls</span>
+                            <span class="floating-tag">Gardens</span>
+                            <span class="floating-tag">Resorts</span>
+                            <span class="floating-tag">Hotels</span>
+                            <span class="floating-tag">Farmhouses</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-card">
+                    <div class="floating-image" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800');">
+                        <div class="floating-badge">6 Types</div>
+                    </div>
+                    <div class="floating-content">
+                        <h3 class="floating-title">Photographers</h3>
+                        <div class="floating-tags">
+                            <span class="floating-tag">Wedding</span>
+                            <span class="floating-tag">Candid</span>
+                            <span class="floating-tag">Pre-Wedding</span>
+                            <span class="floating-tag">Cinema</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-card">
+                    <div class="floating-image" style="background-image: url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800');">
+                        <div class="floating-badge">5 Types</div>
+                    </div>
+                    <div class="floating-content">
+                        <h3 class="floating-title">Makeup</h3>
+                        <div class="floating-tags">
+                            <span class="floating-tag">Bridal</span>
+                            <span class="floating-tag">Family</span>
+                            <span class="floating-tag">Hair</span>
+                            <span class="floating-tag">Mehandi</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-card">
+                    <div class="floating-image" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800');">
+                        <div class="floating-badge">7 Types</div>
+                    </div>
+                    <div class="floating-content">
+                        <h3 class="floating-title">Planning</h3>
+                        <div class="floating-tags">
+                            <span class="floating-tag">Planners</span>
+                            <span class="floating-tag">Decorators</span>
+                            <span class="floating-tag">Florists</span>
+                            <span class="floating-tag">Lighting</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-card">
+                    <div class="floating-image" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800');">
+                        <div class="floating-badge">4 Types</div>
+                    </div>
+                    <div class="floating-content">
+                        <h3 class="floating-title">Catering</h3>
+                        <div class="floating-tags">
+                            <span class="floating-tag">Caterers</span>
+                            <span class="floating-tag">Cake</span>
+                            <span class="floating-tag">Bar Service</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="floating-card">
+                    <div class="floating-image" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=800');">
+                        <div class="floating-badge">5 Types</div>
+                    </div>
+                    <div class="floating-content">
+                        <h3 class="floating-title">Entertainment</h3>
+                        <div class="floating-tags">
+                            <span class="floating-tag">DJ</span>
+                            <span class="floating-tag">Music Band</span>
+                            <span class="floating-tag">Dancers</span>
+                            <span class="floating-tag">Anchors</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION 4: Magazine Grid Layout -->
+        <div class="layout-section">
+            <h2 class="option-title">Option 4: Magazine Grid Layout</h2>
+            <p class="option-description">Dynamic asymmetric grid inspired by modern magazines. Eye-catching and unique.</p>
+            
+            <div class="magazine-grid">
+                <div class="magazine-card large">
+                    <div class="magazine-bg" style="background-image: url('https://images.unsplash.com/photo-1519167758481-83f29da8c776?w=800');"></div>
+                    <div class="magazine-overlay">
+                        <h3 class="magazine-title">Wedding Venues</h3>
+                        <p class="magazine-subtitle">Explore 9 different venue types</p>
+                    </div>
+                </div>
+
+                <div class="magazine-card">
+                    <div class="magazine-bg" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800');"></div>
+                    <div class="magazine-overlay">
+                        <h3 class="magazine-title">Photography</h3>
+                        <p class="magazine-subtitle">6 services</p>
+                    </div>
+                </div>
+
+                <div class="magazine-card">
+                    <div class="magazine-bg" style="background-image: url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800');"></div>
+                    <div class="magazine-overlay">
+                        <h3 class="magazine-title">Makeup</h3>
+                        <p class="magazine-subtitle">5 services</p>
+                    </div>
+                </div>
+
+                <div class="magazine-card wide">
+                    <div class="magazine-bg" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800');"></div>
+                    <div class="magazine-overlay">
+                        <h3 class="magazine-title">Planning & Decoration</h3>
+                        <p class="magazine-subtitle">Complete event planning services</p>
+                    </div>
+                </div>
+
+                <div class="magazine-card tall">
+                    <div class="magazine-bg" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800');"></div>
+                    <div class="magazine-overlay">
+                        <h3 class="magazine-title">Catering</h3>
+                        <p class="magazine-subtitle">4 services</p>
+                    </div>
+                </div>
+
+                <div class="magazine-card">
+                    <div class="magazine-bg" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=800');"></div>
+                    <div class="magazine-overlay">
+                        <h3 class="magazine-title">Entertainment</h3>
+                        <p class="magazine-subtitle">5 services</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OPTION 5: Hover Expand Cards -->
+        <div class="layout-section">
+            <h2 class="option-title">Option 5: Interactive Hover Expand</h2>
+            <p class="option-description">Innovative expanding design. Hover to reveal details - great for desktop users.</p>
+            
+            <div class="expand-grid">
+                <div class="expand-card">
+                    <div class="expand-bg" style="background-image: url('https://images.unsplash.com/photo-1519167758481-83f29da8c776?w=800');"></div>
+                    <div class="expand-overlay">
+                        <h3 class="expand-title">Venues</h3>
+                        <div class="expand-details">
+                            <ul class="expand-list">
+                                <li>Banquet Halls</li>
+                                <li>Marriage Gardens</li>
+                                <li>Wedding Resorts</li>
+                                <li>Kalyana Mandapams</li>
+                                <li>Wedding Hotels</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expand-card">
+                    <div class="expand-bg" style="background-image: url('https://images.unsplash.com/photo-1606216794074-735e91aa2c92?w=800');"></div>
+                    <div class="expand-overlay">
+                        <h3 class="expand-title">Photographers</h3>
+                        <div class="expand-details">
+                            <ul class="expand-list">
+                                <li>Wedding Photography</li>
+                                <li>Candid Shoots</li>
+                                <li>Pre-Wedding</li>
+                                <li>Cinematography</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expand-card">
+                    <div class="expand-bg" style="background-image: url('https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=800');"></div>
+                    <div class="expand-overlay">
+                        <h3 class="expand-title">Makeup</h3>
+                        <div class="expand-details">
+                            <ul class="expand-list">
+                                <li>Bridal Makeup</li>
+                                <li>Family Makeup</li>
+                                <li>Hair Styling</li>
+                                <li>Mehandi Artists</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expand-card">
+                    <div class="expand-bg" style="background-image: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?w=800');"></div>
+                    <div class="expand-overlay">
+                        <h3 class="expand-title">Planning</h3>
+                        <div class="expand-details">
+                            <ul class="expand-list">
+                                <li>Wedding Planners</li>
+                                <li>Decorators</li>
+                                <li>Florists</li>
+                                <li>Stage Design</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expand-card">
+                    <div class="expand-bg" style="background-image: url('https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800');"></div>
+                    <div class="expand-overlay">
+                        <h3 class="expand-title">Catering</h3>
+                        <div class="expand-details">
+                            <ul class="expand-list">
+                                <li>Wedding Caterers</li>
+                                <li>Cake Makers</li>
+                                <li>Bar Services</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="expand-card">
+                    <div class="expand-bg" style="background-image: url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=800');"></div>
+                    <div class="expand-overlay">
+                        <h3 class="expand-title">Entertainment</h3>
+                        <div class="expand-details">
+                            <ul class="expand-list">
+                                <li>DJ Services</li>
+                                <li>Music Bands</li>
+                                <li>Dancers</li>
+                                <li>Anchors</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Selection Prompt -->
+        <div class="layout-section" style="text-align: center; background: linear-gradient(135deg, #d4af37 0%, #b8941f 100%); color: white;">
+            <h2 style="color: white; margin-bottom: 20px;">Which Design Speaks to You?</h2>
+            <p style="font-size: 1.1rem; opacity: 0.9;">Let me know your choice (Option 1-5) and I'll implement it in your Django project!</p>
+        </div>
+    </div>
+</body>
+</html>
