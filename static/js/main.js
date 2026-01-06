@@ -396,3 +396,59 @@ document.addEventListener('DOMContentLoaded', function() {
     console.log('%c Welcome to SGD Events! ', 'background: #d4af37; color: #2c1810; font-size: 20px; font-weight: bold; padding: 10px;');
     console.log('%c Sree Gurudatta Events - Making your special moments unforgettable ', 'color: #8b4513; font-size: 14px;');
 });
+
+// ============================================
+// Favorite Toggle Functionality
+// ============================================
+function toggleFavorite(button) {
+    const itemId = button.dataset.itemId;
+    const itemType = button.dataset.itemType;
+    const icon = button.querySelector('i');
+    
+    // Get CSRF token
+    const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value || getCookie('csrftoken');
+    
+    // Make AJAX request
+    fetch('/favorites/toggle/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'X-CSRFToken': csrfToken
+        },
+        body: `item_type=${itemType}&item_id=${itemId}`
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Toggle button state
+            if (data.favorited) {
+                button.classList.add('favorited');
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+            } else {
+                button.classList.remove('favorited');
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+
+// Get CSRF token from cookie
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Favorites - SGD Events{% endblock %}
+
+{% block content %}
+<!-- Favorites Section -->
+<section class="favorites-section">
+    <div class="container">
+        <h1><i class="fas fa-heart"></i> My Favorites</h1>
+        <p class="section-subtitle">Your saved items for easy access</p>
+        
+        <!-- Venues -->
+        {% if favorited_items.venues %}
+        <div class="favorites-category">
+            <h2><i class="fas fa-building"></i> Venues</h2>
+            <div class="items-grid">
+                {% for venue in favorited_items.venues %}
+                <div class="item-card">
+                    <div class="item-image">
+                        {% if venue.main_image %}
+                            <img src="{{ venue.main_image.url }}" alt="{{ venue.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/400x300?text={{ venue.name }}" alt="{{ venue.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="item-content">
+                        <h3>{{ venue.name }}</h3>
+                        <p class="item-location"><i class="fas fa-map-marker-alt"></i> {{ venue.location }}</p>
+                        <div class="item-footer">
+                            <div class="item-price">
+                                <span class="price">₹{{ venue.price_per_day }}/day</span>
+                            </div>
+                            <a href="{% url 'events:venue_detail' venue.slug %}" class="btn-view">
+                                View <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Jewellery -->
+        {% if favorited_items.jewellery %}
+        <div class="favorites-category">
+            <h2><i class="fas fa-gem"></i> Jewellery</h2>
+            <div class="items-grid">
+                {% for item in favorited_items.jewellery %}
+                <div class="item-card">
+                    <div class="item-image">
+                        {% if item.main_image %}
+                            <img src="{{ item.main_image.url }}" alt="{{ item.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/400x300?text={{ item.name }}" alt="{{ item.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="item-content">
+                        <h3>{{ item.name }}</h3>
+                        <p class="item-material"><i class="fas fa-gem"></i> {{ item.material }}</p>
+                        <div class="item-footer">
+                            <div class="item-price">
+                                <span class="price">₹{{ item.rental_price }}</span>
+                            </div>
+                            <a href="{% url 'events:jewellery_detail' item.slug %}" class="btn-view">
+                                View <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Food -->
+        {% if favorited_items.food %}
+        <div class="favorites-category">
+            <h2><i class="fas fa-utensils"></i> Food & Catering</h2>
+            <div class="items-grid">
+                {% for item in favorited_items.food %}
+                <div class="item-card">
+                    <div class="item-image">
+                        {% if item.main_image %}
+                            <img src="{{ item.main_image.url }}" alt="{{ item.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/400x300?text={{ item.name }}" alt="{{ item.name }}">
+                        {% endif %}
+                    </div>
+                    <div class="item-content">
+                        <h3>{{ item.name }}</h3>
+                        <p class="item-cuisine"><i class="fas fa-utensils"></i> {{ item.cuisine_type }}</p>
+                        <div class="item-footer">
+                            <div class="item-price">
+                                <span class="price">₹{{ item.price_per_plate }}/plate</span>
+                            </div>
+                            <a href="{% url 'events:food_detail' item.slug %}" class="btn-view">
+                                View <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+        
+        {% if not favorited_items.venues and not favorited_items.jewellery and not favorited_items.food %}
+        <div class="empty-state">
+            <i class="fas fa-heart-broken"></i>
+            <h3>No Favorites Yet</h3>
+            <p>Start adding items to your favorites!</p>
+            <a href="{% url 'events:home' %}" class="btn-primary">Browse Items</a>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Venues - SGD Events{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="category-hero">
+    <div class="container">
+        <h1><i class="fas fa-building"></i> Venues</h1>
+        <p>Find the perfect venue for your special event</p>
+    </div>
+</section>
+
+<!-- Venues by Subcategory -->
+<section class="items-section">
+    <div class="container">
+        {% for subcategory_name, items in subcategories.items %}
+        <div class="subcategory-section">
+            <h2 class="subcategory-title">
+                <i class="fas fa-star"></i> {{ subcategory_name }}
+            </h2>
+            
+            <div class="items-grid">
+                {% for venue in items %}
+                <div class="item-card">
+                    <div class="item-image">
+                        {% if venue.main_image %}
+                            <img src="{{ venue.main_image.url }}" alt="{{ venue.name }}">
+                        {% else %}
+                            <img src="https://via.placeholder.com/400x300?text={{ venue.name }}" alt="{{ venue.name }}">
+                        {% endif %}
+                        <div class="item-badge">
+                            <i class="fas fa-users"></i> {{ venue.capacity }} guests
+                        </div>
+                    </div>
+                    
+                    <div class="item-content">
+                        <h3>{{ venue.name }}</h3>
+                        <p class="item-location">
+                            <i class="fas fa-map-marker-alt"></i> {{ venue.location }}
+                        </p>
+                        <p class="item-description">{{ venue.description|truncatewords:20 }}</p>
+                        
+                        <div class="item-footer">
+                            <div class="item-price">
+                                <span class="price-label">From</span>
+                                <span class="price">₹{{ venue.price_per_day }}/day</span>
+                            </div>
+                            <a href="{% url 'events:venue_detail' venue.slug %}" class="btn-view">
+                                View Details <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% empty %}
+        <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <h3>No Venues Available</h3>
+            <p>Check back soon for new venues!</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ item.name }} - SGD Events{% endblock %}
+
+{% block content %}
+<!-- Item Detail Section -->
+<section class="item-detail-section">
+    <div class="container">
+        <div class="detail-wrapper">
+            <!-- Image Gallery -->
+            <div class="detail-gallery">
+                <div class="main-image">
+                    {% if item.main_image %}
+                        <img src="{{ item.main_image.url }}" alt="{{ item.name }}" id="mainImage">
+                    {% else %}
+                        <img src="https://via.placeholder.com/800x600?text={{ item.name }}" alt="{{ item.name }}" id="mainImage">
+                    {% endif %}
+                </div>
+                
+                {% if item.images.all %}
+                <div class="thumbnail-gallery">
+                    <div class="thumbnail active">
+                        {% if item.main_image %}
+                            <img src="{{ item.main_image.url }}" alt="{{ item.name }}" onclick="changeMainImage(this.src)">
+                        {% endif %}
+                    </div>
+                    {% for image in item.images.all %}
+                    <div class="thumbnail">
+                        <img src="{{ image.image.url }}" alt="{{ image.caption }}" onclick="changeMainImage(this.src)">
+                    </div>
+                    {% endfor %}
+                </div>
+                {% endif %}
+            </div>
+            
+            <!-- Item Details -->
+            <div class="detail-info">
+                <div class="detail-header">
+                    <div>
+                        <span class="detail-badge">{{ item.get_subcategory_display }}</span>
+                        <h1>{{ item.name }}</h1>
+                        <p class="detail-cuisine">
+                            <i class="fas fa-utensils"></i> {{ item.cuisine_type }} Cuisine
+                        </p>
+                    </div>
+                    
+                    {% if user.is_authenticated %}
+                    <button class="btn-favorite {% if is_favorited %}favorited{% endif %}" 
+                            data-item-id="{{ item.id }}" 
+                            data-item-type="{{ item_type }}"
+                            onclick="toggleFavorite(this)">
+                        <i class="{% if is_favorited %}fas{% else %}far{% endif %} fa-heart"></i>
+                    </button>
+                    {% endif %}
+                </div>
+                
+                <div class="detail-price">
+                    <span class="price-label">Price Per Plate</span>
+                    <span class="price">₹{{ item.price_per_plate }}</span>
+                </div>
+                
+                <div class="detail-meta">
+                    <div class="meta-item">
+                        <i class="fas fa-users"></i>
+                        <div>
+                            <strong>Serves</strong>
+                            <span>{{ item.serves }} people</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-description">
+                    <h3>Description</h3>
+                    <p>{{ item.description }}</p>
+                </div>
+                
+                <div class="detail-actions">
+                    <button class="btn-primary btn-large">
+                        <i class="fas fa-phone"></i> Contact Us
+                    </button>
+                    <button class="btn-secondary btn-large">
+                        <i class="fas fa-shopping-cart"></i> Order Now
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+function changeMainImage(src) {
+    document.getElementById('mainImage').src = src;
+    document.querySelectorAll('.thumbnail').forEach(thumb => {
+        thumb.classList.remove('active');
+    });
+    event.target.closest('.thumbnail').classList.add('active');
+}
+</script>
+{% endblock %}

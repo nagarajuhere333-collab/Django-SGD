@@ -1,6 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
 from .forms import ContactForm
+from .models import VenueItem, JewelleryItem, FoodItem, Favorite
 
 
 def home(request):
@@ -163,6 +167,199 @@ def home(request):
     
     return render(request, 'events/home.html', context)
 
+
+def venue_list(request):
+    """Display all venues grouped by subcategory"""
+    venues = VenueItem.objects.all()
+    
+    # Group by subcategory
+    subcategories = {}
+    for choice_value, choice_label in VenueItem.SUBCATEGORY_CHOICES:
+        items = venues.filter(subcategory=choice_value)
+        if items.exists():
+            subcategories[choice_label] = items
+    
+    context = {
+        'subcategories': subcategories,
+        'category_name': 'Venues',
+        'events': ['Wedding', 'Birthday', 'Corporate Event', 'Anniversary', 'Engagement'],
+        'locations': ['Bangalore', 'Mumbai', 'Delhi', 'Chennai', 'Hyderabad'],
+    }
+    return render(request, 'events/venue_list.html', context)
+
+
+def venue_detail(request, slug):
+    """Display detailed view of a single venue"""
+    venue = get_object_or_404(VenueItem, slug=slug)
+    
+    # Check if favorited (if user is logged in)
+    is_favorited = False
+    if request.user.is_authenticated:
+        is_favorited = Favorite.objects.filter(
+            user=request.user,
+            item_type='venue',
+            item_id=venue.id
+        ).exists()
+    
+    context = {
+        'item': venue,
+        'item_type': 'venue',
+        'is_favorited': is_favorited,
+        'events': ['Wedding', 'Birthday', 'Corporate Event', 'Anniversary', 'Engagement'],
+        'locations': ['Bangalore', 'Mumbai', 'Delhi', 'Chennai', 'Hyderabad'],
+    }
+    return render(request, 'events/venue_detail.html', context)
+
+
+def jewellery_list(request):
+    """Display all jewellery items grouped by subcategory"""
+    items = JewelleryItem.objects.all()
+    
+    # Group by subcategory
+    subcategories = {}
+    for choice_value, choice_label in JewelleryItem.SUBCATEGORY_CHOICES:
+        category_items = items.filter(subcategory=choice_value)
+        if category_items.exists():
+            subcategories[choice_label] = category_items
+    
+    context = {
+        'subcategories': subcategories,
+        'category_name': 'Jewellery',
+        'events': ['Wedding', 'Birthday', 'Corporate Event', 'Anniversary', 'Engagement'],
+        'locations': ['Bangalore', 'Mumbai', 'Delhi', 'Chennai', 'Hyderabad'],
+    }
+    return render(request, 'events/jewellery_list.html', context)
+
+
+def jewellery_detail(request, slug):
+    """Display detailed view of a single jewellery item"""
+    item = get_object_or_404(JewelleryItem, slug=slug)
+    
+    is_favorited = False
+    if request.user.is_authenticated:
+        is_favorited = Favorite.objects.filter(
+            user=request.user,
+            item_type='jewellery',
+            item_id=item.id
+        ).exists()
+    
+    context = {
+        'item': item,
+        'item_type': 'jewellery',
+        'is_favorited': is_favorited,
+        'events': ['Wedding', 'Birthday', 'Corporate Event', 'Anniversary', 'Engagement'],
+        'locations': ['Bangalore', 'Mumbai', 'Delhi', 'Chennai', 'Hyderabad'],
+    }
+    return render(request, 'events/jewellery_detail.html', context)
+
+
+def food_list(request):
+    """Display all food items grouped by subcategory"""
+    items = FoodItem.objects.all()
+    
+    # Group by subcategory
+    subcategories = {}
+    for choice_value, choice_label in FoodItem.SUBCATEGORY_CHOICES:
+        category_items = items.filter(subcategory=choice_value)
+        if category_items.exists():
+            subcategories[choice_label] = category_items
+    
+    context = {
+        'subcategories': subcategories,
+        'category_name': 'Food & Catering',
+        'events': ['Wedding', 'Birthday', 'Corporate Event', 'Anniversary', 'Engagement'],
+        'locations': ['Bangalore', 'Mumbai', 'Delhi', 'Chennai', 'Hyderabad'],
+    }
+    return render(request, 'events/food_list.html', context)
+
+
+def food_detail(request, slug):
+    """Display detailed view of a single food item"""
+    item = get_object_or_404(FoodItem, slug=slug)
+    
+    is_favorited = False
+    if request.user.is_authenticated:
+        is_favorited = Favorite.objects.filter(
+            user=request.user,
+            item_type='food',
+            item_id=item.id
+        ).exists()
+    
+    context = {
+        'item': item,
+        'item_type': 'food',
+        'is_favorited': is_favorited,
+        'events': ['Wedding', 'Birthday', 'Corporate Event', 'Anniversary', 'Engagement'],
+        'locations': ['Bangalore', 'Mumbai', 'Delhi', 'Chennai', 'Hyderabad'],
+    }
+    return render(request, 'events/food_detail.html', context)
+
+
+@login_required
+def favorites(request):
+    """Display user's favorite items"""
+    user_favorites = Favorite.objects.filter(user=request.user)
+    
+    # Get actual items
+    favorited_items = {
+        'venues': [],
+        'jewellery': [],
+        'food': []
+    }
+    
+    for fav in user_favorites:
+        if fav.item_type == 'venue':
+            try:
+                item = VenueItem.objects.get(id=fav.item_id)
+                favorited_items['venues'].append(item)
+            except VenueItem.DoesNotExist:
+                pass
+        elif fav.item_type == 'jewellery':
+            try:
+                item = JewelleryItem.objects.get(id=fav.item_id)
+                favorited_items['jewellery'].append(item)
+            except JewelleryItem.DoesNotExist:
+                pass
+        elif fav.item_type == 'food':
+            try:
+                item = FoodItem.objects.get(id=fav.item_id)
+                favorited_items['food'].append(item)
+            except FoodItem.DoesNotExist:
+                pass
+    
+    context = {
+        'favorited_items': favorited_items,
+        'events': ['Wedding', 'Birthday', 'Corporate Event', 'Anniversary', 'Engagement'],
+        'locations': ['Bangalore', 'Mumbai', 'Delhi', 'Chennai', 'Hyderabad'],
+    }
+    return render(request, 'events/favorites.html', context)
+
+
+@login_required
+@require_POST
+def toggle_favorite(request):
+    """Toggle favorite status via AJAX"""
+    item_type = request.POST.get('item_type')
+    item_id = request.POST.get('item_id')
+    
+    if not item_type or not item_id:
+        return JsonResponse({'success': False, 'error': 'Missing parameters'})
+    
+    try:
+        favorite = Favorite.objects.get(
+            user=request.user,
+            item_type=item_type,
+            item_id=item_id
+        )
+        favorite.delete()
+        return JsonResponse({'success': True, 'favorited': False})
+    except Favorite.DoesNotExist:
+        Favorite.objects.create(
+            user=request.user,
+            item_type=item_type,
+            item_id=item_id
+        )
+        return JsonResponse({'success': True, 'favorited': True})
 
 def about(request):
     """About Us page view"""
