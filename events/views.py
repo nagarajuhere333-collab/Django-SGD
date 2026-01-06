@@ -143,12 +143,22 @@ def home(request):
         'Pune',
         'Kolkata',
     ]
+
+    events = [
+        'Wedding',
+        'Engagement',
+        'Birthday',
+        'Corporate Event',
+        'Anniversary',
+        'Baby Shower',        
+    ]
     
     context = {
         'packages': packages,
         'categories': categories,
         'locations': locations,
         'form': form,
+        'events': events,
     }
     
     return render(request, 'events/home.html', context)

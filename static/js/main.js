@@ -82,8 +82,9 @@ document.addEventListener('DOMContentLoaded', function() {
             // Show notification
             showNotification(`Location changed to ${location}`);
         });
-    });
-    
+    });        
+
+
     // Restore selected location on page load
     const savedLocation = localStorage.getItem('selectedLocation');
     if (savedLocation) {
@@ -95,6 +96,31 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
         }
     }
+    
+    // ============================================
+    // Event Selection
+    const eventItems = document.querySelectorAll('.event-item');
+    
+    eventItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const event = this.getAttribute('data-event');
+
+            // Store selected event in localStorage
+            localStorage.setItem('selectedEvent', event);
+
+            // Update UI to show selected event
+            const eventToggle = document.querySelector('.dropdown-toggle');
+            if (eventToggle && eventToggle.textContent.includes('Event')) {
+                eventToggle.innerHTML = `   
+                    <i class="fas fa-star"></i> ${event}
+                    <i class="fas fa-chevron-down"></i>
+                `;
+            }
+            // Show notification
+            showNotification(`Event changed to ${event}`);
+        });
+    });
     
     // ============================================
     // Package Card Interactions
