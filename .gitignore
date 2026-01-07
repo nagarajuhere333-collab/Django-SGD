@@ -12,6 +12,7 @@ ENV/
 .venv/
 .env/
 
+
 # Django
 *.log
 db.sqlite3
@@ -67,3 +68,4 @@ htmlcov/
 
 # Local settings (if you create one)
 local_settings.py
+AWS_S3_SETUP.md
