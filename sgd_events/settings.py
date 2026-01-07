@@ -14,7 +14,7 @@ from pathlib import Path
 from dotenv import load_dotenv
 import os
 
-load_dotenv()  # Load environment variables from .env file
+#load_dotenv()  # Load environment variables from .env file
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -157,7 +157,7 @@ if USE_S3:
         'CacheControl': 'max-age=86400',  # Cache for 1 day
     }
     AWS_DEFAULT_ACL = 'public-read'
-    AWS_S3_FILE_OVERWRITE = False  # Don't overwrite files with same name
+    AWS_S3_FILE_OVERWRITE = True  # Allow overwriting - skips HEAD check
     AWS_QUERYSTRING_AUTH = False  # Don't add auth query params to URLs
     AWS_LOCATION = 'media'  # Store media files in 'media' folder in bucket
     

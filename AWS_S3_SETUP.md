@@ -53,7 +53,7 @@
 
 5. Click **Save changes**
 
-### Step 4: Configure Bucket Policy (Make Files Public)
+### Step 4: Configure Bucket Policy (IMPORTANT - Allow Upload & Read)
 1. Still in **Permissions** tab
 2. Scroll to **Bucket policy**
 3. Click **Edit** and paste (replace `sgd-events-media` with your bucket name):
@@ -66,14 +66,34 @@
             "Sid": "PublicReadGetObject",
             "Effect": "Allow",
             "Principal": "*",
-            "Action": "s3:GetObject",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
             "Resource": "arn:aws:s3:::sgd-events-media/*"
+        },
+        {
+            "Sid": "AllowListBucket",
+            "Effect": "Allow",
+            "Principal": "*",
+            "Action": "s3:ListBucket",
+            "Resource": "arn:aws:s3:::sgd-events-media"
         }
     ]
 }
 ```
 
+**What this does:**
+- Allows anyone to GET (read/download) files
+- Allows anyone to PUT (upload) files  
+- Allows listing the bucket contents
+
 4. Click **Save changes**
+
+**If you get an error about public access:**
+- Go to **Block public access (bucket settings)** → Edit
+- **UNCHECK all 4 checkboxes**
+- Save and try again
 
 ### Step 5: Create IAM User for Django
 1. Search for **IAM** service in AWS Console
@@ -217,10 +237,14 @@ sgd-events-media/
 - ✅ Without S3, Render deletes files on each deploy
 - ✅ Check S3 bucket to confirm files are there
 
-### Access Denied errors
-- ✅ Verify IAM user has correct permissions
-- ✅ Check bucket policy is set correctly
-- ✅ Ensure AWS credentials are correct (no spaces/typos)
+### Access Denied / 403 Forbidden errors
+- ✅ **Update bucket policy** to allow PutObject and ListBucket (see Step 4 above)
+- ✅ **Disable Block Public Access** in bucket settings (all 4 checkboxes unchecked)
+- ✅ Verify IAM user has `AmazonS3FullAccess` policy attached
+- ✅ Check bucket policy is set correctly (copy from Step 4 exactly)
+- ✅ Ensure AWS credentials are correct (no spaces/typos in Render environment)
+- ✅ Verify bucket name matches exactly (case-sensitive)
+- ✅ Check you're using the correct AWS region
 
 ## Switching Between Local and S3
 
