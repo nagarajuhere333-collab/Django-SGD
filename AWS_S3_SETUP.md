@@ -95,8 +95,6 @@
 5. Select **Application running outside AWS**
 6. Click **Next** → **Create access key**
 7. **IMPORTANT**: Copy and save:
-   - **Access key ID** (e.g., )
-   - **Secret access key** ()
    - You cannot see the secret key again!
 8. Click **Done**
 
@@ -112,7 +110,7 @@
 | Key | Value | Example |
 |-----|-------|---------|
 | `USE_S3` | `True` | `True` |
-| `AWS_ACCESS_KEY_ID` | Your access key | `` |
+| `` | Your access key | `` |
 | `AWS_SECRET_ACCESS_KEY` | Your secret key | `...` |
 | `AWS_STORAGE_BUCKET_NAME` | Your bucket name | `sgd-events-media` |
 | `AWS_S3_REGION_NAME` | Your region | `ap-south-1` |
